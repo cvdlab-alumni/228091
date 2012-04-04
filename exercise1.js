@@ -1,14 +1,15 @@
-	var externalPoint1 = [[0,0,0],[0,2,0],[1,2,0],[1,21,0]];
+var externalPoint1 = [[0,0,0],[0,2,0],[1,2,0],[1,21,0]];
 	var externalPoint2 = [[1,21,0],[9,21,0],[9,16,0],[39,16,0]];
 	var externalPoint3 = [[39,16,0],[39,15,0],[51,15,0],[51,6,0]];
 	var externalPoint4 = [[51,6,0],[52,6,0],[52,4,0],[39,4,0]];
-	var externalPoint5 = [[39,4,0],[39,0,0],[0,0,0]];
+	var externalPoint5 = [[39,4,0],[39,0,0]];
+	var externalPoint6 = [[39,0,0],[0,0,0]];
 	var internalPoint1 = [[5.5,14,0],[26.5,14,0]];
 	var internalPoint2 = [[25,6.5,0],[34,6.5,0]];
 	var internalPoint3 = [[2,1,0],[1,1,0],[8,1,0]];
 	var internalPoint4 = [[30,12.8,0],[40,12.8,0]];
 	var internalPoint5 = [[37.2,10.5,0],[42.3,10.5,0]];
-	var internalPoint6 = [[51,6,0],[51,5,0],[41,5,0]];
+	var internalPoint6 = [[51,5,0],[41,5,0]];
 	var internalPoint7 = [[44.3,14,0],[44.3,6,0]];
 	var internalPoint8 = [[4,20.8,0],[8,20.8,0]];
 	var externalWall1 = POLYLINE(externalPoint1);
@@ -16,6 +17,7 @@
 	var externalWall3 = POLYLINE(externalPoint3);
 	var externalWall4 = POLYLINE(externalPoint4);
 	var externalWall5 = POLYLINE(externalPoint5);
+	var externalWall6 = POLYLINE(externalPoint6);
 	var internalWall1 = POLYLINE(internalPoint1);
 	var internalWall2 = POLYLINE(internalPoint2);
 	var internalWall3 = POLYLINE(internalPoint3);
@@ -29,7 +31,7 @@
 	var compositeInternalWall1 = STRUCT([internalWall1,internalWall2,internalWall3]);
 	var compositeInternalWall2 = STRUCT([internalWall4,internalWall5,internalWall6]);
 	var compositeInternalWall3 = STRUCT([internalWall7,internalWall8]);	
-	var totalExternalWall = STRUCT([externalWall12,externalWall34,externalWall5]);
+	var totalExternalWall = STRUCT([externalWall12,externalWall34,externalWall5,externalWall6]);
 	var totalIntenalWall = STRUCT([compositeInternalWall1,compositeInternalWall2,compositeInternalWall3]);
 	var totalWall = STRUCT([totalExternalWall,totalIntenalWall]);	
 	DRAW(totalWall);
