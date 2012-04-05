@@ -70,13 +70,23 @@ gradini.push( SIMPLEX_GRID([[-(37+gradLargo*5), gradLargo],[-1,3],[altezzaBase-(
 gradini.push( SIMPLEX_GRID([[-(37+gradLargo*6), gradLargo],[-1,3],[altezzaBase-(gradSS*6)]]) );
 gradini = STRUCT(gradini);
 //DRAW(gradini);
+var gradiniScomposti = [];
+gradiniScomposti.push( SIMPLEX_GRID([[-37, gradLargo],[-1,3],[altezzaBase]]) );
+gradiniScomposti.push( T([2])([1])(SIMPLEX_GRID([[-(37+gradLargo*1), gradLargo],[-1,3],[altezzaBase-(gradSS*1)]]) ));
+gradiniScomposti.push( T([2])([2])(SIMPLEX_GRID([[-(37+gradLargo*2), gradLargo],[-1,3],[altezzaBase-(gradSS*2)]]) ));
+gradiniScomposti.push( T([2])([3])(SIMPLEX_GRID([[-(37+gradLargo*3), gradLargo],[-1,3],[altezzaBase-(gradSS*3)]]) ));
+gradiniScomposti.push( T([2])([4])(SIMPLEX_GRID([[-(37+gradLargo*4), gradLargo],[-1,3],[altezzaBase-(gradSS*4)]]) ));
+gradiniScomposti.push( T([2])([5])(SIMPLEX_GRID([[-(37+gradLargo*5), gradLargo],[-1,3],[altezzaBase-(gradSS*5)]]) ));
+gradiniScomposti.push( T([2])([6])(SIMPLEX_GRID([[-(37+gradLargo*6), gradLargo],[-1,3],[altezzaBase-(gradSS*6)]]) ));
+gradiniScomposti = STRUCT(gradiniScomposti);
+DRAW(gradiniScomposti);
 var panca = [];
 panca.push( SIMPLEX_GRID([[-8,15],[-(14+0.05),0.5],[-(altezzaBase+0.5),0.1]]) );
 for(var pancaI = 0; pancaI <= 8; pancaI++ ) {
   panca.push( SIMPLEX_GRID([[-(8+1.85*pancaI), 0.25],[-(14+0.05), 0.25],[-altezzaBase, 0.5]]) );
 }
 panca = STRUCT(panca);
-DRAW(panca);
+//DRAW(panca);
 var murettiNord = [];
 murettiNord.push( SIMPLEX_GRID([[-5,ssMuroLisci],[-17,2],[-altezzaBase,altezzaMuri]]) );
 murettiNord.push( SIMPLEX_GRID([[-5,ssMuroLisci],[-(20), 2-ssMuro],[-altezzaBase,altezzaMuri]]) );
