@@ -22,13 +22,13 @@ var piscinaEScaliniT = T([0])([22])(piscinaEScalini);
 //DRAW(piscinaEScaliniT);
 baseStruttura.push( piscinaEScaliniT); // corpo tra piscina e scalini
 var protScalini = SIMPLEX_GRID([[3],[1],[altezzaBase]]);
-var protScaliniT = T([0])([37])(protScaliniT);
-DRAW(protScaliniT);
+var protScaliniT = T([0])([37])(protScalini);
+//DRAW(protScaliniT);
 baseStruttura.push( protScaliniT ); // prot scalini
 var corpoScaliniNord = SIMPLEX_GRID([[3],[13],[altezzaBase]]);
-var corpoScaliniNordT = T([0,1])([37,4])(corpoScaliniNordT);
-//DRAW(corpoScaliniNordT);
-baseStruttura.push( T([0,1])([37,4])(SIMPLEX_GRID([[3],[13],[altezzaBase]])) ); // corpo scalini e nord
+var corpoScaliniNordT = T([0,1])([37,4])(corpoScaliniNord);
+//DRAW(T([0,1,2])([37,4,3])(corpoScaliniNord));
+baseStruttura.push( corpoScaliniNordT ); // corpo scalini e nord
 baseStruttura.push( T([0,1])([40,4])(SIMPLEX_GRID([[7],[12],[altezzaBase]])) ); // corpo tra prima e pool dopo
 baseStruttura.push( T([0,1])([47,4])(SIMPLEX_GRID([[5],[1],[altezzaBase]])) ); // protuberanza piscina nord
 baseStruttura.push( T([0,1])([51,5])(SIMPLEX_GRID([[1],[1],[altezzaBase]])) ); // protuberanza piscina nord alto
@@ -59,7 +59,7 @@ var fondoPiscina = [];
 fondoPiscina.push( SIMPLEX_GRID([[-1,21],[-1,9],[altezzaBase/2]]) ); // settore fondo piscina grossa
 fondoPiscina.push( SIMPLEX_GRID([[-47,4],[-5,11],[altezzaBase/2]]) ); // settore fondo piscina piccola
 fondoPiscina = STRUCT(fondoPiscina);
-
+//DRAW(fondoPiscina);
 var gradini = [];
 gradini.push( SIMPLEX_GRID([[-37, gradLargo],[-1,3],[altezzaBase]]) );
 gradini.push( SIMPLEX_GRID([[-(37+gradLargo*1), gradLargo],[-1,3],[altezzaBase-(gradSS*1)]]) );
@@ -69,14 +69,14 @@ gradini.push( SIMPLEX_GRID([[-(37+gradLargo*4), gradLargo],[-1,3],[altezzaBase-(
 gradini.push( SIMPLEX_GRID([[-(37+gradLargo*5), gradLargo],[-1,3],[altezzaBase-(gradSS*5)]]) );
 gradini.push( SIMPLEX_GRID([[-(37+gradLargo*6), gradLargo],[-1,3],[altezzaBase-(gradSS*6)]]) );
 gradini = STRUCT(gradini);
-
+//DRAW(gradini);
 var panca = [];
 panca.push( SIMPLEX_GRID([[-8,15],[-(14+0.05),0.5],[-(altezzaBase+0.5),0.1]]) );
 for(var pancaI = 0; pancaI <= 8; pancaI++ ) {
   panca.push( SIMPLEX_GRID([[-(8+1.85*pancaI), 0.25],[-(14+0.05), 0.25],[-altezzaBase, 0.5]]) );
 }
 panca = STRUCT(panca);
-
+DRAW(panca);
 var murettiNord = [];
 murettiNord.push( SIMPLEX_GRID([[-5,ssMuroLisci],[-17,2],[-altezzaBase,altezzaMuri]]) );
 murettiNord.push( SIMPLEX_GRID([[-5,ssMuroLisci],[-(20), 2-ssMuro],[-altezzaBase,altezzaMuri]]) );
@@ -117,6 +117,3 @@ vetrate.push( SIMPLEX_GRID([[-32,ssVetrate],[-(7+(2*ssMuro)), 6],[-altezzaBase, 
 // vetrate ortogonale su doppie
 vetrate.push( SIMPLEX_GRID([[-30,10],[-(7+6+(2*ssMuro)), ssVetrate],[-altezzaBase, altezzaMuri]]) );
 vetrate = STRUCT(vetrate);
-
-//DRAW(STRUCT([baseStruttura,muriStrutturaGrossi,fondoPiscina,gradini,panca,murettiNord,tettoNord,colonneEst,tettoDestro,vetrate]));
-
