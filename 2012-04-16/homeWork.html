@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>plasm.js - test</title> 
+<link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+
+  <header>
+    <h1 id="plasm-logo">Plasm.js</h1>
+  </header>
+
+  <div id="plasm"></div>
+  
+  <footer>
+    <div id="plasm-inspector"></div>
+  </footer>
+
+  <script src="../support/three.js"></script>
+  <script src="../support/three-detector.js"></script>
+  <script src="../support/three-frame.js"></script>
+  <script src="../support/three-stats.js"></script>
+  <script src="../support/three-trackball.js"></script>
+  <script src="../support/simplexn.js/lib/simplexn.js"></script>
+  <script src="../support/f.js/lib/f.js"></script>
+  <script src="../lib/plasm.js"></script>
+  <script src="../lib/plasm-fun.js"></script>
+
+  <script type="text/javascript">
+   p = new Plasm('plasm', 'plasm-inspector');
+   fun.PLASM(p);
+	var angolo;
+	var link = T([0,1])([-1,-19])(CUBOID([2,20]));
+	//DRAW(link);
+	var joinJoin = function(angoloAlpha) {
+		return COMP([ T([1])([-18]), R([2])((angoloAlpha/180)*PI) ]);
+	};
+
+	// Funzione nei gradi di libertà
+	var treJoin = function(a1,a2,a3) {
+	return STRUCT([link, joinJoin(a1), link, joinJoin(a2), link, joinJoin(a3), link]);
+};
+
+ //DRAW(treJoin(30,45,60));
+ //DRAW(treJoin(30,45,30));
+	//DRAW(STRUCT([link, joinJoin(90), link, joinJoin(90), link, joinJoin(90), link, joinJoin(90+45), link]));
+for (angolo=0;angolo<105;angolo = angolo + 15){
+	DRAW(treJoin(angolo,45,60))}
+  </script>
+</body>
+</html>
