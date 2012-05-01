@@ -56,7 +56,7 @@ var curveMapping = CUBIC_HERMITE(S0)(controlpoints);
 // mappa curva su dominio
 var curve = MAP(curveMapping)(domain);
 // disegna
-//DRAW(curve);
+DRAW(curve);
 
 // ESERCIZIO 4
 // Quintica
@@ -64,10 +64,10 @@ var domain = INTERVALS(1)(50);
 // Grado punti - 1 (solo punti no t)
 var controlpoints = [[0,0],[1,2],[3,2],[3,0],[5,-1],[6,1]];
 var curveMapping = BEZIER(S0)(controlpoints);
-var curve1 = MAP(curveMapping)(domain);
-//DRAW(COLOR([0,1,1])(curve1));
+var curve = MAP(curveMapping)(domain);
+DRAW(COLOR([0,1,1])(curve));
 // poligono dei punti di cntrollo
-//DRAW(POLYLINE(controlpoints));
+DRAW(POLYLINE(controlpoints));
 
 // ESERCIZIO 4z
 // Quintica
@@ -75,15 +75,15 @@ var domain = INTERVALS(1)(50);
 // Grado punti - 1 (solo punti no t)
 var controlpoints = [[0,0,1],[1,2,2],[3,2,3],[3,0,4],[5,-1,5],[6,1,6]];
 var curveMapping = BEZIER(S0)(controlpoints);
-var curve2 = MAP(curveMapping)(domain);
-//DRAW(COLOR([0,1,1])(curve2));
+var curve = MAP(curveMapping)(domain);
+DRAW(COLOR([0,1,1])(curve));
 // poligono dei punti di cntrollo
-//DRAW(POLYLINE(controlpoints));
+DRAW(POLYLINE(controlpoints));
 
 // ESERCIZIO 5
 // Spline è curva a tratti (POLYLINE = spline di grado 1)
 // Spline cardinale cubica: spline interpolatrice (che interpola con qualsiasi insieme di punti finito) 
-// 		complesso cubiche hermit attaccate tra loro con continuità geometrica e di derivata prima ovvero:
+//   	complesso cubiche hermit attaccate tra loro con continuità geometrica e di derivata prima ovvero:
 //  	TRATTO i-esimo di curva: ci(u) = U3 * Bh * [p(i) p(i+1) h(p(i+1)-p(i-1)) h(p(i+2) - p(i)) ]
 //		ci(u) = U(3) B(h) [0 1 0 0]		[p(i-1)]
 //						  [0 0 1 0]		[p(i)]
@@ -104,4 +104,28 @@ var domain = INTERVALS(1)(50);
 var controlpoints = [[0,0],[0,0],[3,2],[4,-1],[7,3],[9,0],[11,1],[12,0],[12,0]];
 // Spline unisce i pezzi di curva
 var splineCardinal = SPLINE(CUBIC_CARDINAL(domain,3))(controlpoints);
-DRAW(splineCardinal);
+// DRAW(splineCardinal);
+
+
+var drawBezierS0 = function(controlPoints) {
+	var domain = INTERVALS(1)(1080); // In HD xD
+
+	// punti di controllo
+	var listaDfacce = [];
+	controlPoints.forEach( function(v,i) { listaDfacce.push([i]); } );
+	DRAW( COLOR([0.1,0.6,0.2])( SIMPLICIAL_COMPLEX(controlPoints)(listaDfacce) ) );
+
+	// polyline che unisce punti di controllo
+	DRAW( COLOR([0.5,0.2,0.7])( POLYLINE(controlPoints) ) );
+
+	// curva
+	var curveMapping = BEZIER(S0)(controlPoints);
+	var curve = MAP(curveMapping)(domain);
+	DRAW( COLOR([0,0.5,0.5])( curve ) );
+};
+
+// Cubic uspline
+var domain = INTERVALS(1)(20);
+var controlpoints = [[-3,6],[-4,2],[-3,-1],[-1,1],[1.5,1.5],[3,4],[5,5],[7,2],[6,-2],[2,-3]];
+var splineCubic = SPLINE(CUBIC_UBSPLINE(domain))(controlpoints);
+DRAW(splineCubic);
