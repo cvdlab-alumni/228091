@@ -7,10 +7,10 @@
 *altezza 1 metro
 *lunghezza 1 metro
 */
-//tlasla ogni insieme di punti di una quantita pari a tlasla su asse z
+//tlasla ogni insieme di punti di una quantita pari a tlasla su asse Y
 var tlaslaPunti = function(punti,tlasla){
-  var puntiTlaslati;
-	puntiTlaslati = punti.map(function(v) { return [v[0], v[1], v[2] + tlasla]; } );
+	var puntiTlaslati;
+	puntiTlaslati = punti.map(function(v) { return [v[0], v[1] + tlasla, v[2] ]; } );
 		return puntiTlaslati;
 	};
 //crea un insiele di elementi di cardinalità anumEle e distanti tra loro distEle
@@ -33,7 +33,7 @@ var creaCurveElementiAla = function(puntiElementi){
 	};
 var domain1 = INTERVALS(1)(1080);
 var domain2 = DOMAIN([[0,1],[0,1]])([30,50]);
-var stabOPoint = [[2,1,0],[0,1,0],[0,1.5,0],[0,-0.01,0],[2,1,0]];//ampiezza ala circa 1metro alteza circa 10-15 cm
+var stabOPoint = [[2,0,1],[1,0,1],[1,0,0.5],[0.5,0,1.5],[2,0,1]];
 //il singolo stabilizzatre orinzontale e 1/3 la lunghezza dell'ala intera
 //per allegerire la mole dei calcoli porto il numero dei segmenti da 14 a 4 con distanze di 0,97536 cm
 var stabOElementi = creaElementiAla(stabOPoint,4,0.81);
@@ -44,12 +44,11 @@ var strutturaCurveStabO = STRUCT(CONS(AA(MAP)(insiemeCurveStabO))(domain1));
 //creo superfice stabilizzatore orizzontale;
 var curvaSuperficeStabO = BEZIER(S1)(insiemeCurveStabO);
 var superficeStabO = MAP(curvaSuperficeStabO)(domain2);
-var superficeStabO1 = T([1])([0.4+1])(superficeStabO);//somma spessori stabilizzatore + distanza
-var superficeStabO2 = T([1])([0.4+1])(superficeStabO1);
-var totaleStabO = STRUCT([superficeStabO,superficeStabO1,superficeStabO2]);
-DRAW(COLOR([0.5,0.2,0.3])(totaleStabO));
+var superficeStabO1 = T([2])([0.4+1])(superficeStabO);//somma spessori stabilizzatore + distanza
+var superficeStabO2 = T([2])([0.4+1])(superficeStabO1);
+
 //stabilizzatore verticale
-var stabV = SIMPLEX_GRID([([0,1]),[0,1],[0,0.1]]);
+var stabV = SIMPLEX_GRID([([0,1]),[0,0.1],[0,1]]);
 var stabVTlaslato = T([0,1,2])([1,1,1.3])(stabV);
 var totaleStabO = STRUCT([superficeStabO,superficeStabO1,superficeStabO2,stabVTlaslato]);
 DRAW(COLOR([0.5,0.2,0.3])(totaleStabO));
