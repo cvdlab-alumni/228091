@@ -10,7 +10,16 @@
 *altezza 0,30 metri
 */
 
-//var puntiTriangoloMotore = [[0,0,0],[0,0,0.6] [0,0.35,0.6], [0,-0.35,6],[0,0]];
+var domain = INTERVALS(1)(50);
+var controlpointsElica = [[1,0],[1,1],[1,0],[1,1]];
+var controlpointsElica1 = [[1,0],[1,1],[-1,0],[-1,-1]];
+var curveElica = CUBIC_HERMITE(S0)(controlpointsElica);
+var curveElica1 = CUBIC_HERMITE(S0)(controlpointsElica1);
+var surperficeElica = CUBIC_HERMITE(S1)([curveElica,curveElica1,[1,1,1],[-1,-1,-1]]);
+var out = MAP(surperficeElica)(domain);
+//DRAW(out);
+
+//DRAW(strutturaElica);
 var triangoloMotore = TRIANGLE_FAN([[0,0,0],[0,0.35,0.6],[0,-0.35,0.6]]);
 var triangoloPilota = T([0])([2.8956])(triangoloMotore);
 var lineaBase = POLYLINE([[0,0,0],[2.9,0,0]]);
