@@ -76,7 +76,7 @@ var superficeStabO2 = T([2])([0.4+1])(superficeStabO1);
 var stabV = SIMPLEX_GRID([([0,1]),[0,0.1],[0,1]]);
 var stabVTlaslato = T([0,1,2])([1,1.2,1.3])(stabV);
 var totaleStab = STRUCT([superficeStabO,superficeStabO1,superficeStabO2,stabVTlaslato]);
-var tlaslaStabilizzatore = T([0,1,2])([5.65,3.25,0])(totaleStab);
+var tlaslaStabilizzatore = T([0,1,2])([6.65,3.6,0])(totaleStab);
 var strutturaTot = STRUCT([triAla,tlaslaCarlinga,tlaslaStabilizzatore])
 //DRAW(tlaslaStabilizzatore,,totaleStab);
 DRAW(COLOR([0.5,0.2,0.3])(strutturaTot));
