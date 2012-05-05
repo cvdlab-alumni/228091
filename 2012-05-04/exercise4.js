@@ -4,7 +4,7 @@
 
 //tlasla ogni insieme di punti di una quantita pari a tlasla su asse Y
 var tlaslaPunti = function(punti,tlasla){
-  var puntiTlaslati;
+	var puntiTlaslati;
 	puntiTlaslati = punti.map(function(v) { return [v[0], v[1] + tlasla, v[2] ]; } );
 		return puntiTlaslati;
 	};
@@ -58,7 +58,7 @@ var totCarlingaMotePilota = STRUCT([triangoloMotore,triangoloPilota,lineaBase,li
 var carlingaCodaLato1 = POLYLINE([[2.9,0,0],[7.65,0,0],[7.65,0,0.4],[2.9,0.35,0.6],[2.9,0,0]]);
 var carlingaCodaLato2 = POLYLINE([[2.9,0,0],[7.65,0,0],[7.65,0,0.4],[2.9,-0.35,0.6],[2.9,0,0]]);
 var strutturaCarlinga = STRUCT([totCarlingaMotePilota ,carlingaCodaLato1,carlingaCodaLato2]);
-var tlaslaCarlinga = T([1,2])([4.88,1.3])(strutturaCarlinga);
+var tlaslaCarlinga = T([1,2])([4.9,1.3])(strutturaCarlinga);
 //DRAW(tlaslaCarlinga);
 //stabilizzatore orizzontale verticale
 var stabOPoint = [[2,0,1],[1,0,1],[1,0,0.5],[0.5,0,1.5],[2,0,1]];
@@ -74,7 +74,7 @@ var superficeStabO1 = T([2])([0.4+1])(superficeStabO);//somma spessori stabilizz
 var superficeStabO2 = T([2])([0.4+1])(superficeStabO1);
 //stabilizzatore verticale
 var stabV = SIMPLEX_GRID([([0,1]),[0,0.1],[0,1]]);
-var stabVTlaslato = T([0,1,2])([1,1,1.3])(stabV);
+var stabVTlaslato = T([0,1,2])([1,1.2,1.3])(stabV);
 var totaleStab = STRUCT([superficeStabO,superficeStabO1,superficeStabO2,stabVTlaslato]);
 var tlaslaStabilizzatore = T([0,1,2])([5.65,3.25,0])(totaleStab);
 var strutturaTot = STRUCT([triAla,tlaslaCarlinga,tlaslaStabilizzatore])
