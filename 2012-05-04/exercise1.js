@@ -1,6 +1,4 @@
-
-
-*
+/*
 *ala superiore (intera) Avio Triplane
 *lunghezza ala = 32 feet =  9.7536
 *elementi per mezza ala 21 ,ala grande intera 42
@@ -9,10 +7,10 @@
 *altezza ala 0,1  0,15 metri
 */
 
-//tlasla ogni insieme di punti di una quantita pari a tlasla su asse z
+//tlasla ogni insieme di punti di una quantita pari a tlasla su asse Y
 var tlaslaPunti = function(punti,tlasla){
 	var puntiTlaslati;
-	puntiTlaslati = punti.map(function(v) { return [v[0], v[1], v[2] + tlasla]; } );
+	puntiTlaslati = punti.map(function(v) { return [v[0], v[1] + tlasla, v[2] ]; } );
 		return puntiTlaslati;
 	};
 //crea un insiele di elementi di cardinalità anumEle e distanti tra loro distEle
@@ -35,9 +33,9 @@ var creaCurveElementiAla = function(puntiElementi){
 	};
 var domain1 = INTERVALS(1)(1080);
 var domain2 = DOMAIN([[0,1],[0,1]])([30,50]);
-var alaPoint = [[2,1,0],[0,1,0],[0,1.5,0],[0,-0.01,0],[2,1,0]];//ampiezza ala circa 1metro alteza circa 10-15 cm
-//var curvaSezioneAla = BEZIER(S0)(alaPoint);
-//var sezioneAla = MAP(curvaSezioneAla)(domain1);
+var alaPoint = [[2,0,1],[1,0,1],[1,0,0.5],[0.5,0,1.5],[2,0,1]];//ampiezza ala circa 1metro alteza circa 10-15 cm
+var curvaSezioneAla = BEZIER(S0)(alaPoint);
+var sezioneAla = MAP(curvaSezioneAla)(domain1);
 //DRAW(sezioneAla);
 //l'ala completa intera superiore nella realtà è composta da 41 elementi distanti circa 23 cm
 //per allegerire la mole dei calcoli porto il numero dei segmenti da 41 a 10 con distanze di 0,97536 cm
@@ -45,9 +43,12 @@ var elementiSezione = creaElementiAla(alaPoint,10,0.98);
 var insiemeCurveProfili = creaCurveElementiAla(elementiSezione);
 var strutturaCurveProfile = STRUCT(CONS(AA(MAP)(insiemeCurveProfili))(domain1));
 //DRAW(strutturaCurveProfile);
-
 //creo superfice ala;
 var curvaSuperficeAla = BEZIER(S1)(insiemeCurveProfili);
 var superficeAla = MAP(curvaSuperficeAla)(domain2);
-DRAW(COLOR([0.5,0.2,0.3])(superficeAla));
 
+//creo triAla
+var superficeAla1 = T([2])([0.4+1])(superficeAla);//somma spessori stabilizzatore + distanza
+var superficeAla2 = T([2])([0.4+1])(superficeAla1);
+var triAla = STRUCT([superficeAla,superficeAla1,superficeAla2]);
+DRAW(COLOR([0.5,0.2,0.3])(triAla));
