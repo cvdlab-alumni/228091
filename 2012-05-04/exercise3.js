@@ -50,4 +50,7 @@ var totaleStabO = STRUCT([superficeStabO,superficeStabO1,superficeStabO2]);
 DRAW(COLOR([0.5,0.2,0.3])(totaleStabO));
 //stabilizzatore verticale
 var stabV = SIMPLEX_GRID([([0,1]),[0,1],[0,0.1]]);
-var stabVTlaslato = T([0,1,2])([1,1,1.3])(st
+var stabVTlaslato = T([0,1,2])([1,1,1.3])(stabV);
+var totaleStabO = STRUCT([superficeStabO,superficeStabO1,superficeStabO2,stabVTlaslato]);
+DRAW(COLOR([0.5,0.2,0.3])(totaleStabO));
+//DRAW(stabVTlaslato);
