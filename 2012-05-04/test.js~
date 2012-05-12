@@ -29,7 +29,7 @@ var controls = [[0,0,0],[2,5,0],[7,3,0],[9,7,0],[12,2,0]];
 // nodi = punti + grado + 1
 var c1 = NUBS(S0)(2)([0,0,0,1,2,3,3,3])(controls);
 var model1 = MAP(c1)(domain);
-DRAW(model1);
+//DRAW(model1);
 
 var controls2 = [[0,0,0],[2,5,3],[7,3,6],[9,7,-2],[12,2,-3]];
 // nodi = punti + grado + 1
@@ -44,12 +44,15 @@ var sMap = MAP(s1)(domain2);
 
 var s12 = BEZIER(S1)([c1,c2]);
 var surf = MAP(s12)(domain2);
-DRAW(surf);
+//DRAW(surf);
 //NUBS esempi da plasm doc
 var domain = INTERVALS(1)(20);
 var controls = [[0,0],[-1,2],[1,4],[2,3],[1,1],[1,2],[2.5,1],[2.5,3],[4,4],[5,0]];
 var nubs = NUBS(S0)(3)([0,0,0,0,1,2,3,4,5,6,7,7,7,7])(controls);
 var model = MAP(nubs)(domain);
 //DRAW(model);
-
+var domain = INTERVALS(1)(20);
+var controls = [[0,0], [0.35,0.6], [0.35,0.6], [0.35,0.6]];
+var curve = MAP(CUBIC_HERMITE(S0)(controls))(domain);
+DRAW(curve);
 

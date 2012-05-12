@@ -59,3 +59,34 @@ var curvepTN = STRUCT(CONS(AA(MAP)([cpT0,cpT1,cpT2,cpT3,cpT4]))(domain1));
 var surfWing = BEZIER(S1)([cpT0,cpT1,cpT2,cpT3,cpT4]);
 var surfImage = MAP(surfWing)(domain2);
 //DRAW(COLOR([0.1,0.2,0.3,0.4])(surfImage));
+
+
+// Un casino in 3d
+var domain1 = INTERVALS(1)(30);
+var domain2 = DOMAIN([[0,1],[0,1]])([30,50]);
+var domain3 = DOMAIN([[0,1],[0,1],[0,1]])([10,10,10]);
+
+var pT0 = [[10,0,0],[0,5,0],[0,-3,0],[5,2,0],[10,0,0]]//punti profilo ala
+var pT1 = pT0.map(function(v) { return [v[0], v[1], v[2] + 10]; } );
+var pT2 = pT1.map(function(v) { return [v[0], v[1], v[2] + 10]; } );
+var pT3 = pT2.map(function(v) { return [v[0] + 100, v[1] - 50, v[2] + 50]; } );
+var pT4 = pT3.map(function(v) { return [v[0] + 100, v[1] - 50, v[2] + 50]; } );
+
+var cpT0 = BEZIER(S0)(pT0);//curve profilo ala
+var cpT1 = BEZIER(S0)(pT1);
+var cpT2 = BEZIER(S0)(pT2);
+var cpT3 = BEZIER(S0)(pT3);
+var cpT4 = BEZIER(S0)(pT4);
+
+var curvepTN = STRUCT(CONS(AA(MAP)([cpT0,cpT1,cpT2,cpT3,cpT4]))(domain1));
+//DRAW(COLOR([1,0,0])(curvepTN));//disegna curve profilo ala
+
+var cpS0 = BEZIER(S1)([cpT0,cpT1]);//disegna superfici profilo area
+var cpS1 = BEZIER(S1)([cpT3,cpT4]);
+
+var superTN = STRUCT(CONS(AA(MAP)([cpS0,cpS1]))(domain2));
+//DRAW(COLOR([0,1,0,0.2])(superTN));
+
+var solidB = BEZIER(S2)([cpS0,cpS1]);
+var solidImage = MAP(solidB)(domain3);
+DRAW(COLOR([0,0,1,0.5])(solidImage));

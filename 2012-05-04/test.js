@@ -18,7 +18,7 @@ var controls = [[0,0],[-1,2],[1,4],[2,3],[1,1],[1,2],[2.5,1],[2.5,3],[4,4],[5,0]
 // nodi = punti + grado + 1
 var nubs = NUBS(S0)(3)([0,0,0,0,1,2,3,4,5,6,7,7,7,7])(controls);
 var model = MAP(nubs)(domain);
-DRAW(model);
+//DRAW(model);
 
 // per interpolare punto iniziale e nodo finale devono essere triplicati i nodi relativi
 
@@ -51,5 +51,8 @@ var controls = [[0,0],[-1,2],[1,4],[2,3],[1,1],[1,2],[2.5,1],[2.5,3],[4,4],[5,0]
 var nubs = NUBS(S0)(3)([0,0,0,0,1,2,3,4,5,6,7,7,7,7])(controls);
 var model = MAP(nubs)(domain);
 //DRAW(model);
-
+var domain = INTERVALS(1)(20);
+var controls = [[0,0], [0.35,0.6], [0.35,0.6], [0.35,0.6]];
+var curve = MAP(CUBIC_HERMITE(S0)(controls))(domain);
+DRAW(curve);
 

@@ -27,7 +27,6 @@ var POLYPOINT = function(points) {
 	// AA(LIST)(points) ritorna [[[10,0,0]],[[0,5,0]],[[0,-3,0]],[[5,2,0]],[[10,0,0]]]
 	return SIMPLICIAL_COMPLEX(points)(listaDfacce);
 };
-
 // 
 var p1 = POLYPOINT(wingcontrol);
 var trans = T([2])([10]);
