@@ -1,10 +1,18 @@
 /*
+<<<<<<< HEAD
 *Avio triplane completo
+=======
+*Avio triplane su pista
+>>>>>>> 5c91d02ac513a4a401e24ac878c4aba97fc77f00
 */
 
 //tlasla ogni insieme di punti di una quantita pari a tlasla su asse Y
 var tlaslaPunti = function(punti,tlasla){
+<<<<<<< HEAD
 	var puntiTlaslati;
+=======
+  var puntiTlaslati;
+>>>>>>> 5c91d02ac513a4a401e24ac878c4aba97fc77f00
 	puntiTlaslati = punti.map(function(v) { return [v[0], v[1] + tlasla, v[2] ]; } );
 		return puntiTlaslati;
 	};

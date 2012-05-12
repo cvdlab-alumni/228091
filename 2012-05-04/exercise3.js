@@ -49,7 +49,11 @@ var superficeStabO2 = T([2])([0.4+1])(superficeStabO1);
 
 //stabilizzatore verticale
 var stabV = SIMPLEX_GRID([([0,1]),[0,0.1],[0,1]]);
+<<<<<<< HEAD
 var stabVTlaslato = T([0,1,2])([1,1.2,1.3])(stabV);
+=======
+var stabVTlaslato = T([0,1,2])([1,1,1.3])(stabV);
+>>>>>>> 5c91d02ac513a4a401e24ac878c4aba97fc77f00
 var totaleStabO = STRUCT([superficeStabO,superficeStabO1,superficeStabO2,stabVTlaslato]);
 DRAW(COLOR([0.5,0.2,0.3])(totaleStabO));
 //DRAW(stabVTlaslato);

@@ -80,4 +80,8 @@ var tlaslaStabilizzatore = T([0,1,2])([6.65,3.6,0])(totaleStab);
 var strutturaTot = STRUCT([triAla,tlaslaCarlinga,tlaslaStabilizzatore])
 //DRAW(tlaslaStabilizzatore,,totaleStab);
 DRAW(COLOR([0.5,0.2,0.3])(strutturaTot));
+<<<<<<< HEAD
 //DRAW(stabVTlaslato);
+=======
+//DRAW(stabVTlaslato);
+>>>>>>> 5c91d02ac513a4a401e24ac878c4aba97fc77f00
