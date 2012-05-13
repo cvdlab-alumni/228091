@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> b75988ad5049d9787e4c50bb913727e673055f90
 var domain1 = INTERVALS(1)(1080);
 var domain2 = DOMAIN([[0,1],[0,1]])([30,50]);
 //volta di riferimento per costruzione arco
