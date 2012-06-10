@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../support/jquery.js"></script>
+</head>
+<body>
+  <div id="images">
+
+</div>
+<script>$.getJSON('oggettiJson/DICOM/dicomProva00.json', function(data) {
+  var items = [];
+  var plugin = data.plugins;
+  var valArray = plugin[1].sets.valArray[1];
+  console.log(plugin);
+  console.log(valArray);
+  $.each(plugin, function(key, val) {
+  //console.log(val.name);
+  //console.log(val.sets);
+  console.log(val.valArray);
+  //console.log(valArray.x);
+  //console.log(val.plugins);
+  //console.log(plugins[0].name);
+    items.push('<li id="' + key + '">' + val + '</li>');
+  });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: items.join('')
+  }).appendTo('body');
+});
+</script>

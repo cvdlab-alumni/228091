@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>img{ height: 100px; float: left; }</style>
+  <script src="../../support/jquery.js"></script>
+</head>
+<body>
+  <div id="images">
+
+</div>
+<script>$.getJSON('oggettiJson/jsonArray.json', function(data) {
+  var items = [];
+
+  $.each(data, function(key, val) {
+  console.log(key);
+  console.log(val);
+  console.log(data[key].one);
+    items.push('<li id="' + key + '">' + " dato one " + data[key].one + " dato two " + data[key].two 
+    + " dato three " + data[key].three + '</li>');
+  });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: items.join('')
+  }).appendTo('body');
+});
+</script>
+
