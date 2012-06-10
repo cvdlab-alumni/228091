@@ -83,7 +83,7 @@ DRAW(POLYLINE(controlpoints));
 // ESERCIZIO 5
 // Spline è curva a tratti (POLYLINE = spline di grado 1)
 // Spline cardinale cubica: spline interpolatrice (che interpola con qualsiasi insieme di punti finito) 
-// 		complesso cubiche hermit attaccate tra loro con continuità geometrica e di derivata prima ovvero:
+//   	complesso cubiche hermit attaccate tra loro con continuità geometrica e di derivata prima ovvero:
 //  	TRATTO i-esimo di curva: ci(u) = U3 * Bh * [p(i) p(i+1) h(p(i+1)-p(i-1)) h(p(i+2) - p(i)) ]
 //		ci(u) = U(3) B(h) [0 1 0 0]		[p(i-1)]
 //						  [0 0 1 0]		[p(i)]

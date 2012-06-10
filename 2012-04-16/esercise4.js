@@ -1,4 +1,14 @@
-var pillarsArea1 = SIMPLEX_GRID([([0.15, -7, 0.15]),[0.15, -6, 0.15],[1.5,1,1]]);
+var gambeSedia = SIMPLEX_GRID([([0.03, -0.3, 0.03]),[0.03, -0.3, 0.03],[0.25]]);
+	var sedile = SIMPLEX_GRID([[0.36],[0.36],[-0.25,0.02]]);
+	var sgabello = STRUCT([gambeSedia,sedile]);
+	var sgabello1 = T([0,1])([32,9])(sgabello);
+	var sgabello2 = T([0,1])([32,10])(sgabello);
+	var sgabello3 = T([0,1])([3,16])(sgabello);
+	var mobilio = STRUCT([sgabello1,sgabello2,sgabello3]);
+	//DRAW(mobilio);
+	//DRAW(gambeSedia);
+	//DRAW(sedile);
+	var pillarsArea1 = SIMPLEX_GRID([([0.15, -7, 0.15]),[0.15, -6, 0.15],[1.5,1,1]]);
 	var floorArea1 = SIMPLEX_GRID([[10],[0.15, 8, 0.15],[-1.5, -1, -1,0.3]]);
 	var pillarsArea2 = SIMPLEX_GRID([REPLICA(3)([0.15, -7, 0.15]),[0.15, -7, 0.15],[1.5,1,1]]);
 	var floorArea2 = SIMPLEX_GRID([[27],[0.15, 12, 0.15],[-1.5, -1, -1,0.3]]);
@@ -20,6 +30,6 @@ var pillarsArea1 = SIMPLEX_GRID([([0.15, -7, 0.15]),[0.15, -6, 0.15],[1.5,1,1]])
 	var greenBuilding2 = COLOR([0,1,0])(translatedBuikding2);//colora di verde secondo edificio
 	//DRAW(bluBuilding2);
 	var bluVasca = COLOR([0,0,1])(translatedVasca);//colora di blu la vasca
-	var building = STRUCT([redBuilding1,greenBuilding2,bluVasca]);	
-	
+	var building = STRUCT([redBuilding1,greenBuilding2,bluVasca,mobilio]);	
+
 	DRAW(building);
