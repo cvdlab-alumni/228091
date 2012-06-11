@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>img{ height: 100px; float: left; }</style>
   <script src="../../support/jquery.js"></script>
 </head>
 <body>
   <div id="images">
 
 </div>
-<script>$.getJSON('oggettiJson/jsonArray.json', function(data) {
+<script>$.getJSON('oggettiJson/DICOM/dicomProva00.json', function(data) {
   var items = [];
-
-  $.each(data, function(key, val) {
-  console.log(key);
-  console.log(val);
-  console.log(data[key].one);
-    items.push('<li id="' + key + '">' + " dato one " + data[key].one + " dato two " + data[key].two 
-    + " dato three " + data[key].three + '</li>');
+  //var plugin = data.plugins;
+  //var valArray = plugin[1].sets.valArray;
+  var punti = data.plugins[1].sets.valArray[0][1];
+  //console.log(plugin);
+  //console.log(valArray);
+  console.log(punti);
+  $.each(plugin, function(key, val) {
+  //console.log(val.name);
+  //console.log(val.sets);
+  //console.log(val.valArray);
+  //console.log(valArray.x);
+  //console.log(val.plugins);
+  //console.log(plugins[0].name);
+    items.push('<li id="' + key + '">' + val + '</li>');
   });
 
   $('<ul/>', {
@@ -25,4 +31,3 @@
   }).appendTo('body');
 });
 </script>
-
