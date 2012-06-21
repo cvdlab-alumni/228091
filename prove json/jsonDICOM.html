@@ -8,20 +8,31 @@
 
 </div>
 <script>$.getJSON('oggettiJson/DICOM/dicomProva00.json', function(data) {
-  var items = [];
-  var plugin = data.plugins;
-  var valArray = plugin[1].sets.valArray;
-  console.log(plugin);
-  console.log(valArray);
-  $.each(plugin, function(key, val) {
-  //console.log(val.name);
-  //console.log(val.sets);
-  console.log(val.valArray);
+  var puntiEstratti = [];
+  //var plugin = data.plugins;
+  //var valArray = plugin[1].sets.valArray;
+  var punti = data.plugins[1].sets.valArray[0][1];
+  //console.log(plugin);
+  //console.log(valArray);
+  console.log(punti);
+  $.each(punti, function(key, val) {
+  console.log(val.x);
+  console.log(val.y);
+  console.log(val.z);
   //console.log(valArray.x);
   //console.log(val.plugins);
   //console.log(plugins[0].name);
-    items.push('<li id="' + key + '">' + val + '</li>');
+  puntiEstratti.push([val.x,val.y,val.z])
+  //items.push('<li id="' + key + '">' + val + '</li>');
   });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: puntiEstratti.join('')
+  }).appendTo('body');
+});
+</script>
+
 
   $('<ul/>', {
     'class': 'my-new-list',
