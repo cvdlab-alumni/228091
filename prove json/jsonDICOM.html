@@ -54,7 +54,8 @@
   //console.log(imgDicom);
   $.each(imgDicom,function(keyPunto,valPunto){
     		//console.log(valPunto.x);
-			puntiImgDicom.push([valPunto.x,valPunto.y,valPunto.z]);  			
+			//puntiImgDicom.push([valPunto.x,valPunto.y,valPunto.z]);
+			puntiImgDicom.push([((valPunto.x)/100),((valPunto.y)/100),valPunto.z]);
   			});
   	 serieDicom.push(puntiImgDicom);
 	 
