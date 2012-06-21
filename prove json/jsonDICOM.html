@@ -7,11 +7,12 @@
   <div id="images">
 
 </div>
+//estrai punti da json ricavato da http://web3d.dia.uniroma3.it/
 <script>$.getJSON('oggettiJson/DICOM/dicomProva00.json', function(data) {
   var puntiEstratti = [];
   //var plugin = data.plugins;
   //var valArray = plugin[1].sets.valArray;
-  var punti = data.plugins[1].sets.valArray[0][1];
+  var punti = data.plugins[1].sets.valArray[0][0];
   //console.log(plugin);
   //console.log(valArray);
   console.log(punti);
@@ -38,5 +39,26 @@
     'class': 'my-new-list',
     html: items.join('')
   }).appendTo('body');
+});
+//estrae i punti da un array di json ricavati da http://web3d.dia.uniroma3.it/
+</script>
+<script>$.getJSON('oggettiJson/DICOM/dicomArray.json', function(data) {
+  var imgDicom;  
+  var serieDicom = [];
+  //console.log(data);
+  $.each(data, function(key, val) {
+  var puntiImgDicom = [];
+  //console.log(data[key]);
+  //console.log(val);
+  imgDicom = val.plugins[1].sets.valArray[0][0];
+  //console.log(imgDicom);
+  $.each(imgDicom,function(keyPunto,valPunto){
+    		//console.log(valPunto.x);
+			puntiImgDicom.push([valPunto.x,valPunto.y,valPunto.z]);  			
+  			});
+  	 serieDicom.push(puntiImgDicom);
+	 
+  });
+  //console.log(serieDicom);
 });
 </script>
