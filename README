@@ -1,4 +1,3 @@
-
 var imgDicom = [
   	[
 				[0.363,0.32,0],[0.398,0.321,0],[0.426,0.337,0],
@@ -274,3 +273,38 @@ var imgDicom = [
 				]
 	];
 
+function daJsonAArray(tipo,scalaXY){
+  this.scalaXY = scalaXY || 1;//imposta scala di default a 1
+  this.tipo = tipo || 1;//imposta oggetto da trasformare  a 1:polygon
+  								//0:polyline 2:Freepol
+  var puntiImgDicom = [];//array contentente punti
+  $.getJSON('oggettiJson/DICOM/json_brain.json', function(data) {
+  //var fettaDicom = [];  
+  //console.log(data);
+   if(tipo == 2){
+  		var ogettoFreepol = data.plugins[2].sets.valArray;//recupera array contenti immagini prese da una slice
+  		//console.log(ogettoFreepol);
+  		$.each(ogettoFreepol,function(indiceInterno,figure){//itera sulle figure contenute in una slice
+    		//console.log(figure);
+    		if(figure.length > 0 ){
+    			$.each(figure,function(indicePunti,figura){//itera su una figura della slice
+    			//console.log(punto);
+    				if(figura.length > 0){//itera sui punti di un disegno
+    					var disegno = [];
+    					$.each(figura,function(indicePunti,punti){//itera su insieme di punti di una figura
+							if(punti.length > 0 ){   						
+    							$.each(punti,function(indicePunto,punto){//itera sulle coordinate di un punto (x,y,z)	
+									disegno.push(((punto.x)/scalaXY),((punto.y)/scalaXY),punto.z);
+  								});
+  							}
+  						});
+  					}
+  					puntiImgDicom.push(disegno);
+  				});
+  			}
+    	});
+   };
+  console.log(puntiImgDicom);
+ });
+  return puntiImgDicom;	
+};
