@@ -1,36 +1,57 @@
 var domain1 = INTERVALS(1)(200);
 var domain2 = DOMAIN([[0,1],[0,1]])([100,100]);
+var risultatoConversione = new Array();
 
 function daJsonAArray(tipo,scalaXY){
   this.scalaXY = scalaXY || 1;//imposta scala di default a 1
   this.tipo = tipo || 1;//imposta oggetto da trasformare  a 1:polygon
-  								//0:polyline 2:Freepol
-  var ritorno =
+ 							//0:polyline 2:Freepol
+  var puntiImgDicom = new Array();//array contentente punti
+  var jqxhr =
   $.getJSON('oggettiJson/DICOM/json_brain.json', function(data) {
-  var fettaDicom = [];  
-  console.log(data);
-   var puntiImgDicom = [];
+  
+  //var fettaDicom = [];  
+  //console.log(data);
    if(tipo == 2){
   		var ogettoFreepol = data.plugins[2].sets.valArray;//recupera array contenti immagini prese da una slice
-  		console.log(ogettoFreepol);
-  		$.each(ogettoFreepol,function(indiceInterno,figura){//itera su ogettoFreepol
-    		console.log(figura);
-    		if(figura.length > 0 ){
-    			$.each(figura,function(indicePunti,punto){//itera sui punti di ogni disegno di una una slice
-    			console.log(punto);
-    			puntiFigura = [];
-				puntiFigura.push([((punto.x)/scalaXY),((punto.y)/scalaXY),punto.z]);
-  					});
-  				}
-    		fettaDicom.push(puntiFigura);
-  			});
-  		puntiImgDicom.push(fettaDicom)
-  	 	};
-
-  console.log(puntiImgDicom);
- });
-  return ritorno;	
+  		//console.log(ogettoFreepol);
+  		$.each(ogettoFreepol,function(indiceInterno,figure){//itera sulle figure contenute in una slice
+    		//console.log(figure);
+    		if(figure.length > 0 ){
+    			$.each(figure,function(indicePunti,figura){//itera su una figura della slice
+    			//console.log(punto);
+    				if(figura.length > 0){//itera sui punti di un disegno
+    					var disegno = [];
+    					$.each(figura,function(indicePunti,punti){//itera su insieme di punti di una figura
+							  						
+    							//$.each(punti,function(indicePunto,punto){//itera sulle coordinate di un punto (x,y,z)	
+									disegno.push([((punti.x)-scalaXY),((punti.y)-scalaXY),punti.z]);
+  								//});
+  							
+  						});
+  					}
+  					
+  					if(disegno != undefined) {
+  						puntiImgDicom.push(disegno);
+  					}
+  				});
+  			}
+    	});
+   };
+  //console.log(puntiImgDicom);
+ }).complete(function() { //alert("complete")
+	copiaRisultato(puntiImgDicom); 	
+ 	});		
+ 	
+  console.log(risultatoConversione);
+  return jqxhr;
 };
+
+function copiaRisultato(risultatoJson){
+	//copio riusultato su altro array 
+ 	 $.each(risultatoJson,function(indiceDisegno,disegno){//itera sulle coordinate di un punto (x,y,z)	
+			risultatoConversione.push(disegno);});	
+	};
 
 function knots (point,par) {
   this.par = par || 0;
@@ -67,11 +88,11 @@ function knots (point,par) {
 			knots.push(ultimo);//inserisci 4 volte l'ultimo valore 			
   			}
   };
-  console.log(knots);
+  //console.log(knots);
   return knots;
 };
 
-function creaCurvaNubs(){
+function creaCurvaNubs(punti){
 	var knots0 = knots(punti,0);
 	return  NUBS(S0)(2)(knots0)(punti);
 	};
@@ -83,10 +104,40 @@ function creaCurveNubs(arrayPunti){
 		}
 	return curveNubs;	
 };
-var puntiDICOM = daJsonAArray(2,100);
+
+var domain = DOMAIN([[0,2]])([1000]);
+	var mapping = function(p){
+		var u = p[0];
+		return [u, 1, 0];
+	};
+	       
+function provaPlasm(){
+	//var mapped = MAP(mapping)(domain);
+	//DRAW(mapped);
+	//COLOR([1,0,0])(mapped);
+	var calcolaCurve = creaCurveNubs(risultatoConversione);
+   var knotsDICOM = knots(risultatoConversione,1);
+   var nubsDICOM = NUBS(S1)(3)(knotsDICOM)(calcolaCurve);
+   //console.log(nubsDICOM.length);
+   var model = COLOR([1,0.89,0.76])(MAP(nubsDICOM)(domain2))
+  DRAW(model);
+};
+
+function avviaLetturaJson(){
+	var jqxhr = daJsonAArray(2,100);
+	jqxhr.complete(function(){ //alert("third complete");	
+	//console.log(risultatoConversione);
+	provaPlasm();
+	});
+};
+//console.log(risultatoConversione);
+
+//var puntiDICOM = daJsonAArray(2,100);
+/*
 var calcolaCurve = creaCurveNubs(puntiDICOM);
 var knotsDICOM = knots(puntiDICOM,1);
 var nubsDICOM = NUBS(S1)(3)(knotsDICOM)(calcolaCurve);
-
-	var model = COLOR([1,0.89,0.76])(MAP(nubsDICOM)(domain2))
+console.log(nubsDICOM.length);
+var model = COLOR([1,0.89,0.76])(MAP(nubsDICOM)(domain2))
 DRAW(model);
+*/
