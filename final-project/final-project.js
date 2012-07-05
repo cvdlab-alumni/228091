@@ -1,5 +1,6 @@
 var domain1 = INTERVALS(1)(200);
-var domain2 = DOMAIN([[0,1],[0,1]])([100,100]);
+var domain2 = DOMAIN([[0,1],[0,1]])([10,10]);
+var domain3 = DOMAIN([[0,1]])([10]);
 var risultatoConversione = new Array();
 
 function daJsonAArray(tipo,scalaXY){
@@ -9,9 +10,7 @@ function daJsonAArray(tipo,scalaXY){
   var puntiImgDicom = new Array();//array contentente punti
   var jqxhr =
   $.getJSON('oggettiJson/DICOM/json_brain.json', function(data) {
-  
-  //var fettaDicom = [];  
-  //console.log(data);
+    //console.log(data);
    if(tipo == 2){
   		var ogettoFreepol = data.plugins[2].sets.valArray;//recupera array contenti immagini prese da una slice
   		//console.log(ogettoFreepol);
@@ -23,14 +22,11 @@ function daJsonAArray(tipo,scalaXY){
     				if(figura.length > 0){//itera sui punti di un disegno
     					var disegno = [];
     					$.each(figura,function(indicePunti,punti){//itera su insieme di punti di una figura
-							  						
-    							//$.each(punti,function(indicePunto,punto){//itera sulle coordinate di un punto (x,y,z)	
-									disegno.push([((punti.x)-scalaXY),((punti.y)-scalaXY),punti.z]);
+							 //$.each(punti,function(indicePunto,punto){//itera sulle coordinate di un punto (x,y,z)	
+									disegno.push([((punti.x)/scalaXY),((punti.y)/scalaXY),punti.z/scalaXY]);
   								//});
-  							
   						});
   					}
-  					
   					if(disegno != undefined) {
   						puntiImgDicom.push(disegno);
   					}
@@ -41,9 +37,8 @@ function daJsonAArray(tipo,scalaXY){
   //console.log(puntiImgDicom);
  }).complete(function() { //alert("complete")
 	copiaRisultato(puntiImgDicom); 	
- 	});		
- 	
-  console.log(risultatoConversione);
+ 	});
+  //console.log(risultatoConversione);
   return jqxhr;
 };
 
@@ -55,7 +50,7 @@ function copiaRisultato(risultatoJson){
 
 function knots (point,par) {
   this.par = par || 0;
-  console.log(par);
+  //console.log(par);
   var k = 2;	
   var m =point.length;
   var n = (m + k + 1);
@@ -92,35 +87,53 @@ function knots (point,par) {
   return knots;
 };
 
-function creaCurvaNubs(punti){
-	var knots0 = knots(punti,0);
-	return  NUBS(S0)(2)(knots0)(punti);
+function creaCurvaNubs(puntiCurva){
+	var knots0 = knots(puntiCurva,0);//calcola knots
+	var curva =  NUBS(S0)(2)(knots0)(puntiCurva);//calcola curva NUBS
+	return curva;
 	};
 
 function creaCurveNubs(arrayPunti){
-	var curveNubs = [];
+	var curveNubs = [];//array di ritorno composto da curve NUBS
 	for(var i = 0; i < arrayPunti.length; i++){
 		curveNubs[i] = creaCurvaNubs(arrayPunti[i]);		
 		}
 	return curveNubs;	
 };
-
-var domain = DOMAIN([[0,2]])([1000]);
-	var mapping = function(p){
-		var u = p[0];
-		return [u, 1, 0];
-	};
 	       
 function provaPlasm(){
 	//var mapped = MAP(mapping)(domain);
 	//DRAW(mapped);
 	//COLOR([1,0,0])(mapped);
-	var calcolaCurve = creaCurveNubs(risultatoConversione);
-   var knotsDICOM = knots(risultatoConversione,1);
-   var nubsDICOM = NUBS(S1)(3)(knotsDICOM)(calcolaCurve);
-   //console.log(nubsDICOM.length);
-   var model = COLOR([1,0.89,0.76])(MAP(nubsDICOM)(domain2))
-  DRAW(model);
+	/*
+	var pointZ0 = risultatoConversione[0]; 
+	var knots0 = knots(pointZ0);
+	var c0 = NUBS(S0)(2)(knots0)(pointZ0);
+	var curve0 = MAP(c0)(domain1);
+	DRAW(curve0);
+	var pointZ1 = risultatoConversione[1]; 
+	var knots1 = knots(pointZ1);
+	var c1 = NUBS(S0)(2)(knots1)(pointZ1);
+	var curve1 = MAP(c1)(domain1);
+	DRAW(curve1);
+	var pointZ2 = risultatoConversione[2]; 
+	var knots2 = knots(pointZ2);
+	var c2 = NUBS(S0)(2)(knots2)(pointZ2);
+	var curve2 = MAP(c2)(domain1);
+	DRAW(curve2);}
+	for(i=0;i<risultatoConversione.length;i++){
+		var pointZ0 = risultatoConversione[i]; 
+		var knots0 = knots(pointZ0);
+		var c0 = NUBS(S0)(2)(knots0)(pointZ0);
+		var curve0 = MAP(c0)(domain3);
+		DRAW(curve0);
+	}*/
+	var curveNUBS = creaCurveNubs(risultatoConversione);//array formato da curve
+	var knotsCurveNUBS = knots(risultatoConversione,1);
+	var nubsDICOM = NUBS(S1)(3)(knotsCurveNUBS)(curveNUBS);
+	//console.log(nubsDICOM.length);
+	 model = COLOR([1,0.89,0.76])(MAP(nubsDICOM)(domain2))
+	DRAW(model);
 };
 
 function avviaLetturaJson(){
