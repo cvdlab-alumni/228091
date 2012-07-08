@@ -27,7 +27,7 @@
   <script src="../../plasm.js/node_modules/f.js/lib/f.js"></script>
   <script src="../../plasm.js/lib/plasm.js"></script>
   <script src="../../plasm.js/lib/plasm-fun.js"></script>
-  <script src="../../support/jquery.js"></script>
+  <script src="../../plasm.js/support/jquery.js"></script>
   <script>
     p = new Plasm('plasm', 'plasm-inspector');
     fun.PLASM(p);
@@ -39,6 +39,9 @@
       console.log("Application update ready");
       window.applicationCache.swapCache();
     }
+  </script>
+  <script>
+  $(document).ready(function () { avviaLetturaJson();});
   </script>
 <!--
   <script type="text/javascript">
