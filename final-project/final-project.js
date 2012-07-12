@@ -2,18 +2,18 @@ var domain1 = INTERVALS(1)(50);
 var domain2 = DOMAIN([[0,1],[0,1]])([50,50]);
 var domain3 = DOMAIN([[0,1]])([50]);
 var risultatoConversione = new Array();
-
+//parsen json
 function daJsonAArray(scalaXYZ){
   this.scalaXYZ = scalaXYZ || 1;//imposta scala di default a 1
   var puntiImgDicom = new Array();//array contentente punti
   var jqxhr =
   $.getJSON('oggettiJson/DICOM/json_brain.json', function(data) {
     //console.log(data);
- 	var ogettoFreepol = data.plugins[2].sets.valArray;//recupera array contenti immagini prese da una slice
+ 	var ogettoFreepol = data.plugins[2].sets.valArray;//recupera array contenti immagini di tutte le slice
   		//console.log(ogettoFreepol);
   		$.each(ogettoFreepol,function(indiceInterno,figure){//itera sulle figure contenute in una slice
     		//console.log(figure);
-    		if(figure.length > 0  ){//seleziono immagini contententi informazioni
+    		if(figure.length > 0  ){//seleziono figure contententi informazioni
     			$.each(figure,function(indicePunti,figura){//itera su una figura della slice
     			//console.log(punto);
     				if(figura.length > 30){//prendo le figure con piu di 30 punti
@@ -33,19 +33,19 @@ function daJsonAArray(scalaXYZ){
   			}
     	});
   //console.log(puntiImgDicom);
- }).complete(function() { //alert("complete")
+ }).complete(function() { //alert("complete") copletato il parsen del json copia il risultato su array di lavoro
 	copiaRisultato(puntiImgDicom); 	
  	});
   //console.log(risultatoConversione);
   return jqxhr;
 };
-
+//copia il risultato su array di lavoro
 function copiaRisultato(risultatoJson){
-	//copio riusultato su altro array 
- 	 $.each(risultatoJson,function(indiceDisegno,disegno){//itera sulle coordinate di un punto (x,y,z)	
+	
+ 	 $.each(risultatoJson,function(indiceDisegno,disegno){	
 			risultatoConversione.push(disegno);});	
 	};
-
+//calcola nodi per curve e superfici NUBS
 function knots (point,par) {
   this.par = par || 0;
   //console.log(par);
@@ -84,13 +84,13 @@ function knots (point,par) {
   //console.log(knots);
   return knots;
 };
-
+//crea singola cuva NUBS
 function creaCurvaNubs(puntiCurva){
 	var knots0 = knots(puntiCurva,0);//calcola knots
 	var curva =  NUBS(S0)(2)(knots0)(puntiCurva);//calcola curva NUBS
 	return curva;
 	};
-
+//crea array di curve NUBs
 function creaCurveNubs(arrayPunti){
 	var curveNubs = [];//array di ritorno composto da curve NUBS
 	for(var i = 0; i < arrayPunti.length; i++){
@@ -98,7 +98,7 @@ function creaCurveNubs(arrayPunti){
 		}
 	return curveNubs;	
 };
-
+//disegna i contorni delle slice DICOM
 function disegnaContorni(){
 	for(i=0;i<risultatoConversione.length;i++){
 		var pointZ0 = risultatoConversione[i]; 
@@ -108,7 +108,7 @@ function disegnaContorni(){
 		DRAW(curve0);
 	};
 };
-	
+//disegna superfici NUBS	
 function disegnaModello(){
 
 	var curveNUBS = creaCurveNubs(risultatoConversione);//array formato da curve
@@ -119,7 +119,7 @@ function disegnaModello(){
 	//var model = MAP(nubsDICOM)(domain2);
 	DRAW(model);
 };
-
+//avvia parsen json e alla fine disegna tutto
 function avviaLetturaJson(){
 	var jqxhr = daJsonAArray(100);//carico il modello con scala 1:100
 	jqxhr.complete(function(){ //alert("third complete");	
