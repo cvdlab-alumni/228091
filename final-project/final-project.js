@@ -69,7 +69,7 @@ function knots (point,par) {
   for (var i = last; i < n; i++) {
     	knots[i] = first;
   		};
-
+         //calcola nodi per superfici
 	 if(par == 1){
   		knots.unshift(0);//aggiunge uno 0 in coda per calcolo NUBS 3D
   		//toglie gli ultimi valori dall'array
